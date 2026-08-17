@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine.Tech.Designs | Graphic Design Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --accent-color: #000000;
+            --secondary-text: #666666;
+            --card-bg: #f8f8f8;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --container-padding: 8vw;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        /* --- Layout --- */
+
+        section {
+            padding: 100px var(--container-padding);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* --- Navigation --- */
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px var(--container-padding);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.5;
+        }
+
+        /* --- Hero Section --- */
+
+        #hero {
+            text-align: left;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            line-height: 1;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.2s;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--secondary-text);
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.4s;
+        }
+
+        /* --- About Section --- */
+
+        #about {
+            background-color: #fafafa;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 600px;
+            background-color: #eee;
+            object-fit: cover;
+            /* REPLACE THIS IMAGE: [YOUR_PROFILE_IMAGE_URL] */
+            background-image: url('Lol.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        /* --- Portfolio Section --- */
+
+        #portfolio {
+            background: white;
+        }
+
+        .filter-container {
+            margin-bottom: 50px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            background: #f0f0f0;
+            transition: var(--transition);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-overlay p {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Hidden class for filtering */
+        .portfolio-item.hide {
+            display: none;
+        }
+
+        /* --- Contact Section --- */
+
+        #contact {
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+        }
+
+        #contact h2 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* --- Footer --- */
+
+        footer {
+            padding: 40px var(--container-padding);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            border-top: 1px solid #eee;
+        }
+
+        /* --- Animations --- */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Responsive --- */
+
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-image {
+                height: 400px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px;
+            }
+            .nav-links {
+                display: none; /* Simplified for single file demo - add hamburger menu if desired */
+            }
+            section {
+                padding: 80px 5vw;
+            }
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Fine.Tech.Designs</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content">
+            <!-- REPLACE: Your Name -->
+            <h1> Fine .Tech.Designs.</h1>
+            <!-- REPLACE: Your Title -->
+            <p>Senior Graphic Designer specializing in brand identity, editorial design, and digital experiences.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <!-- REPLACE: This background-image in CSS or inline style if preferred -->
+                </div>
+                <div class="about-text">
+                    <h2>Storytelling through design.</h2>
+                    <p>With over 2 years of experience, I turn complex ideas into simple, beautiful, and functional visual narratives. My approach blends minimalism with strategic thinking to ensure every pixel serves a purpose.</p>
+                    <br>
+                    <p>I have worked with global brands and boutique startups alike, helping them find their unique voice in a crowded digital landscape.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All Work</button>
+                <!-- Add categories here -->
+                <button class="filter-btn" data-filter="branding">Branding</button>
+                <button class="filter-btn" data-filter="editorial">Editorial</button>
+                <button class="filter-btn" data-filter="digital">Digital</button>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- PROJECT 1 -->
+                <!-- REPLACE: image URL, title, category -->
+                <div class="portfolio-item" data-category="branding">
+                    <img src="Azure.png" alt="Branding Project">
+                    <div class="portfolio-overlay">
+                        <h3> Branding</h3>
+                        <p>Branding • 2025</p>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2 -->
+                <div class="portfolio-item" data-category="editorial">
+                    <img src=" B.png" alt="Editorial Project">
+                    <div class="portfolio-overlay">
+                        <h3>poster Layouts</h3>
+                        <p>Editorial • 2025</p>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3 -->
+                <div class="portfolio-item" data-category="digital">
+                    <img src="crocs.png" alt="Digital Project">
+                    <div class="portfolio-overlay">
+                        <h3>Product promotion</h3>
+                        <p>Digital • 2025</p>
+                    </div>
+                </div>
+
+                <!-- PROJECT 4 -->
+                <div class="portfolio-item" data-category="branding">
+                    <img src="clothing.png" alt="Branding Project">
+                    <div class="portfolio-overlay">
+                        <h3>Branding Identity</h3>
+                        <p>Branding • 2026</p>
+                    </div>
+                </div>
+
+                <!-- PROJECT 5 -->
+                <div class="portfolio-item" data-category="editorial">
+                    <img src="Hotel.png" alt="Editorial Project">
+                    <div class="portfolio-overlay">
+                        <h3>Hotel Menu Design</h3>
+                        <p>Editorial • 2025</p>
+                    </div>
+                </div>
+
+                <!-- PROJECT 6 -->
+                <div class="portfolio-item" data-category="digital">
+                    <img src="col.jpg" alt="Digital Project">
+                    <div class="portfolio-overlay">
+                        <h3>Designs</h3>
+                        <p>Digital • 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Let's create something<br>extraordinary.</h2>
+            <div class="contact-links">
+                <!-- REPLACE: Your details -->
+                <a href="mailto:hello@finedesigns.com">hello @Fine.Tech.Designs.com</a>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="http://www.tiktok.com/@Fine.Tech.Designs"target="_blank">TikTok</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Fine.Designs. Built by Emmanuel.</p>
+    </footer>
+
+    <script>
+        // --- Portfolio Filtering Logic ---
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.classList.remove('hide');
+                        // Add a tiny delay for smooth fade in effect if items were hidden
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.classList.add('hide');
+                    }
+                });
+            });
+        });
+
+        // --- Smooth Scroll Reveal (Simple implementation) ---
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply reveal effect to sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
